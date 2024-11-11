@@ -1,5 +1,7 @@
 # CandidateGeneLDWindow
 
+## Clone this repository
+
 git clone git@github.com:NikeeShrestha/CandidateGeneLDWindow.git
 
 ## Run this code by providing files (see example in the Data folder) to get candidate genes between the window provided for each SNP (see file: Data/LDwindowSignals.xlsx).
