@@ -1,5 +1,7 @@
 # CandidateGeneLDWindow
 
+git clone git@github.com:NikeeShrestha/CandidateGeneLDWindow.git
+
 ## Command for help
 
 python CandidateGene.py or python CandidateGene.py -h
