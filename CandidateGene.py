@@ -1,6 +1,6 @@
 from Parsefunctions import *
 
-annotationfile=annotationparse('Data/Sbicolor_454_v3.1.1.annotation_info.txt')
+annotationfile=annotationparse('/Users/nikeeshrestha/Desktop/CandidateGeneLDWindow/Data/Zmays_833_Zm-B73-REFERENCE-NAM-5.0.55.annotation_info.txt')
 ##put k=0,don't change this value
-LDfile('Data/LDwindowSignals.xlsx', chromcolumn=1, windowstartcolumn=2, windowendcolumn=3,
-       snpcolumn=0, k=0, species='sorghum', pathtogff3='Data/Sbicolor_730_v5.1.gene_exons.gff3',annotationfile=annotationfile)
+LDfile('/Users/nikeeshrestha/Desktop/candidategenes.xlsx', chromcolumn=3, windowstartcolumn=4, windowendcolumn=5,
+       snpcolumn=4, k=0, species='maize', pathtogff3='/Users/nikeeshrestha/Desktop/CandidateGeneLDWindow/Data/Zm-B73-REFERENCE-NAM-5.0_Zm00001eb.1.gff3',annotation=annotationfile)

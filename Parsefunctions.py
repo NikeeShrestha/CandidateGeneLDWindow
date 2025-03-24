@@ -42,7 +42,7 @@ def annotationparse(afile):
                                  'Ricehit':ricehit, 'Ricedefine':ricedefine}
     return annotationfile
 
-def gff3parse(afile, species, intervalstart, intervalend, chrom, snpposition, annotation={}):
+def gff3parse(afile, species, intervalstart, intervalend, chrom, snpposition, annotation):
     
     chrom=chrom
     intervalstart=int(intervalstart)
@@ -88,14 +88,16 @@ def gff3parse(afile, species, intervalstart, intervalend, chrom, snpposition, an
                 genes[gene]={'chrom': chromosome, 'start':genestart, 'end':geneend, 'distance_from_snp': distancemin}
                 
                 if annotation and gene in annotation:
+                    # print('yes')
                     function=annotation[gene]
                     genes[gene].update(function)
             else:
+                # print('no')
                 continue
                 
     return genes
 
-def LDfile(afile, chromcolumn, windowstartcolumn, windowendcolumn, snpcolumn, k, species, pathtogff3,annotationfile=None):
+def LDfile(afile, chromcolumn, windowstartcolumn, windowendcolumn, snpcolumn, k, species, pathtogff3,annotation):
     try:
         df=pd.read_excel(str(afile))
     except Exception:
@@ -115,18 +117,19 @@ def LDfile(afile, chromcolumn, windowstartcolumn, windowendcolumn, snpcolumn, k,
     intervalend=int(row[int(windowendcolumn)])
     snp=row[int(snpcolumn)]
     
-    snpposition=int(str(row[int(snpcolumn)]).split('_')[1])
+    # snpposition=int(str(row[int(snpcolumn)]).split('_')[1])
+    snpposition=int(str(row[int(snpcolumn)]))
     
     genes=gff3parse(afile=pathtogff3, species=species, intervalstart=intervalstart,
                     intervalend=intervalend, chrom=chrom, snpposition=snpposition,
-                    annotation=annotationfile)
+                    annotation=annotation)
     
     genesdf= pd.DataFrame.from_dict(genes, orient='index')
     # print(genesdf.head())
 
-    genesdf.to_csv(f'{snp}_candidategenes.csv', index_label='genes')
+    genesdf.to_csv(f'Chrom_{chrom}_{snp}_candidategenes.csv', index_label='genes')
     
     # return genes,genesdf
     
     # print(k+1)
-    LDfile(afile,chromcolumn, windowstartcolumn, windowendcolumn, snpcolumn, k+1, species, pathtogff3, annotationfile)
+    LDfile(afile,chromcolumn, windowstartcolumn, windowendcolumn, snpcolumn, k+1, species, pathtogff3, annotation=annotation)
